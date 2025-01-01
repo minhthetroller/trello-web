@@ -1,32 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Button from '@mui/material/Button'
+import { useColorScheme } from '@mui/material/styles'
+
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
+import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness'
+import Box from '@mui/material/Box'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { mode, setMode } = useColorScheme()
+  function changingMode(event) {
+    setMode(event.target.value)
+  }
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" rel="noreferrer" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" rel="noreferrer" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <FormControl sx={{ m:2, minWidth: 130 }}>
+        <InputLabel id="mode-selecting-label">Mode</InputLabel>
+        <Select
+          labelId="mode-selecting-label"
+          id="mode-select"
+          value={mode}
+          label="Mode"
+          onChange={changingMode}
+        >
+          <MenuItem value='dark'>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <DarkModeOutlinedIcon fontSize='small'/> Dark
+            </Box>
+          </MenuItem>
+          <MenuItem value='light'>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <LightModeIcon fontSize='small'/> Light
+            </Box>
+          </MenuItem>
+          <MenuItem value='system'>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <SettingsBrightnessIcon fontSize='small'/> System
+            </Box>
+          </MenuItem>
+        </Select>
+      </FormControl>
     </>
   )
 }
